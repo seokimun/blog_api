@@ -7,5 +7,5 @@ export class PostEntity extends BaseEntity {
   title: string;
 
   @Column()
-  body: string;
+  description: string;
 }
