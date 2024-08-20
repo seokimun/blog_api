@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/CreatePost.dto';
 import { PostEntity } from '../entities/post.entity';
@@ -10,7 +18,7 @@ export class PostController {
 
   @Post()
   async createPost(@Body() createPostDto: CreatePostDto): Promise<PostEntity> {
-    const post = await this.postService.createPost(createPostDto);
+    const post = this.postService.createPost(createPostDto);
     return post;
   }
 
@@ -19,13 +27,25 @@ export class PostController {
     @Param('id') id: number,
     @Body() updatePostDto: UpdatePostDto,
   ): Promise<PostEntity> {
-    const post = await this.postService.updatePost(id, updatePostDto);
+    const post = this.postService.updatePost(id, updatePostDto);
     return post;
   }
 
   @Delete(':id')
   async deletePost(@Param('id') id: number): Promise<PostEntity> {
-    const post = await this.postService.deletePost(id);
+    const post = this.postService.deletePost(id);
+    return post;
+  }
+
+  @Get()
+  async findAllPost(): Promise<PostEntity[]> {
+    const post = this.postService.findAllPost();
+    return post;
+  }
+
+  @Get(':id')
+  async findOnePost(id: number): Promise<PostEntity> {
+    const post = this.postService.findOnePost(id);
     return post;
   }
 }
