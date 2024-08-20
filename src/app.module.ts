@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { getMysqlTypeOrmModule } from './getMysqlTypeOrmModule';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { getMysqlTypeOrmModule } from './getMysqlTypeOrmModule';
       isGlobal: true,
     }),
     getMysqlTypeOrmModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],
