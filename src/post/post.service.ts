@@ -24,4 +24,10 @@ export class PostService {
     await this.postRepository.update(id, updatePostDto);
     return this.postRepository.findOneBy({ id });
   }
+
+  async deletePost(id: number): Promise<PostEntity> {
+    const post = await this.postRepository.findOneBy({ id });
+    await this.postRepository.remove(post);
+    return post;
+  }
 }
