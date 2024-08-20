@@ -27,12 +27,14 @@ export class PostService {
 
   async deletePost(id: number): Promise<PostEntity> {
     const post = await this.postRepository.findOneBy({ id });
-    this.postRepository.remove(post);
+    this.postRepository.softDelete({ id });
     return post;
   }
 
   async findAllPost(): Promise<PostEntity[]> {
-    return this.postRepository.find();
+    return this.postRepository.find({
+      withDeleted: true,
+    });
   }
 
   async findOnePost(id: number): Promise<PostEntity> {
