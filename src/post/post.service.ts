@@ -13,8 +13,8 @@ export class PostService {
   ) {}
 
   async createPost(createPostDto: CreatePostDto): Promise<PostEntity> {
-    const post = await this.postRepository.create(createPostDto);
-    return this.postRepository.save(post);
+    const newPost = await this.postRepository.create(createPostDto);
+    return this.postRepository.save(newPost);
   }
 
   async updatePost(
@@ -26,9 +26,9 @@ export class PostService {
   }
 
   async deletePost(id: number): Promise<PostEntity> {
-    const post = await this.postRepository.findOneBy({ id });
+    const deletePost = await this.postRepository.findOneBy({ id });
     this.postRepository.softDelete({ id });
-    return post;
+    return deletePost;
   }
 
   async findAllPost(): Promise<PostEntity[]> {

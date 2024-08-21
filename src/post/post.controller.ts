@@ -18,8 +18,8 @@ export class PostController {
 
   @Post()
   async createPost(@Body() createPostDto: CreatePostDto): Promise<PostEntity> {
-    const post = this.postService.createPost(createPostDto);
-    return post;
+    const newPost = this.postService.createPost(createPostDto);
+    return newPost;
   }
 
   @Put(':id')
@@ -27,25 +27,25 @@ export class PostController {
     @Param('id') id: number,
     @Body() updatePostDto: UpdatePostDto,
   ): Promise<PostEntity> {
-    const post = this.postService.updatePost(id, updatePostDto);
-    return post;
+    const updatePost = this.postService.updatePost(id, updatePostDto);
+    return updatePost;
   }
 
   @Delete(':id')
   async deletePost(@Param('id') id: number): Promise<PostEntity> {
-    const post = this.postService.deletePost(id);
-    return post;
+    const deletePost = this.postService.deletePost(id);
+    return deletePost;
   }
 
   @Get()
   async findAllPost(): Promise<PostEntity[]> {
-    const post = this.postService.findAllPost();
-    return post;
+    const findAllPost = this.postService.findAllPost();
+    return findAllPost;
   }
 
   @Get(':id')
   async findOnePost(id: number): Promise<PostEntity> {
-    const post = this.postService.findOnePost(id);
-    return post;
+    const findOnePost = this.postService.findOnePost(id);
+    return findOnePost;
   }
 }
