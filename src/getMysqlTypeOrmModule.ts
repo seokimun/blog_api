@@ -14,5 +14,6 @@ export const getMysqlTypeOrmModule = TypeOrmModule.forRootAsync({
     database: env.get<string>('DB_DATABASE'),
     entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     synchronize: true,
+    logging: true,
   }),
 });
