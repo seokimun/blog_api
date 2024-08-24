@@ -12,9 +12,9 @@ export abstract class BaseEntity {
   @CreateDateColumn({ type: 'timestamp' })
   created_at: Date;
 
-  @UpdateDateColumn({ type: 'timestamp' })
-  updated_at: Date;
+  @UpdateDateColumn({ type: 'timestamp', nullable: true })
+  updated_at: Date | null;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ type: 'timestamp', nullable: true })
   deleted_at: Date | null;
 }
