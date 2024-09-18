@@ -4,12 +4,12 @@ import { UserEntity } from './user.entity';
 
 @Entity('posts')
 export class PostEntity extends BaseEntity {
-  @Column()
-  title: string;
+    @Column()
+    title: string;
 
-  @Column()
-  description: string;
+    @Column()
+    description: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.posts)
-  user: UserEntity;
+    @ManyToOne(() => UserEntity, (user) => user.posts)
+    user: UserEntity;
 }

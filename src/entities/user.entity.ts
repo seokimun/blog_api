@@ -4,15 +4,15 @@ import { PostEntity } from './post.entity';
 
 @Entity('users')
 export class UserEntity extends BaseEntity {
-  @Column({ unique: true, nullable: false })
-  email: string;
+    @Column({ unique: true, nullable: false })
+    email: string;
 
-  @Column({ nullable: false })
-  password: string;
+    @Column({ nullable: false })
+    password: string;
 
-  @Column({ nullable: true })
-  name: string;
+    @Column({ nullable: true })
+    name: string;
 
-  @OneToMany(() => PostEntity, (post) => post.user)
-  posts: PostEntity[];
+    @OneToMany(() => PostEntity, (post) => post.user)
+    posts: PostEntity[];
 }

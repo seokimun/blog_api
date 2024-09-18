@@ -7,37 +7,37 @@ import { UpdatePostDto } from './dto/UpdatePost.dto';
 
 @Injectable()
 export class PostService {
-  constructor(
-    @InjectRepository(PostEntity)
-    private postRepository: Repository<PostEntity>,
-  ) {}
+    constructor(
+        @InjectRepository(PostEntity)
+        private postRepository: Repository<PostEntity>,
+    ) {}
 
-  async createPost(createPostDto: CreatePostDto): Promise<PostEntity> {
-    const newPost = await this.postRepository.create(createPostDto);
-    return this.postRepository.save(newPost);
-  }
+    async createPost(createPostDto: CreatePostDto): Promise<PostEntity> {
+        const createPost = await this.postRepository.create(createPostDto);
+        return this.postRepository.save(createPost);
+    }
 
-  async updatePost(
-    id: number,
-    updatePostDto: UpdatePostDto,
-  ): Promise<PostEntity> {
-    await this.postRepository.update(id, updatePostDto);
-    return this.postRepository.findOneBy({ id });
-  }
+    async updatePost(
+        id: number,
+        updatePostDto: UpdatePostDto,
+    ): Promise<PostEntity> {
+        await this.postRepository.update(id, updatePostDto);
+        return this.postRepository.findOneBy({ id });
+    }
 
-  async deletePost(id: number): Promise<PostEntity> {
-    const deletePost = await this.postRepository.findOneBy({ id });
-    this.postRepository.softDelete({ id });
-    return deletePost;
-  }
+    async deletePost(id: number): Promise<PostEntity> {
+        const deletePost = await this.postRepository.findOneBy({ id });
+        this.postRepository.softDelete({ id });
+        return deletePost;
+    }
 
-  async findAllPost(): Promise<PostEntity[]> {
-    return this.postRepository.find({
-      withDeleted: true,
-    });
-  }
+    async findAllPost(): Promise<PostEntity[]> {
+        return this.postRepository.find({
+            withDeleted: true,
+        });
+    }
 
-  async findOnePost(id: number): Promise<PostEntity> {
-    return this.postRepository.findOneBy({ id });
-  }
+    async findOnePost(id: number): Promise<PostEntity> {
+        return this.postRepository.findOneBy({ id });
+    }
 }
