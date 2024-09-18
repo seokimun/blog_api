@@ -46,7 +46,7 @@ export class PostController {
     }
 
     @Get(':id')
-    async findOnePost(id: number): Promise<PostEntity> {
+    async findOnePost(@Param('id') id: number): Promise<PostEntity> {
         const findOnePost = this.postService.findOnePost(id);
         return findOnePost;
     }
