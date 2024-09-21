@@ -4,7 +4,7 @@ import { UserEntity } from './user.entity';
 
 @Entity('posts')
 export class PostEntity extends BaseEntity {
-    @Column()
+    @Column({ nullable: true })
     title: string;
 
     @Column()
