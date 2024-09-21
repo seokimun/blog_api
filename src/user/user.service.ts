@@ -26,6 +26,10 @@ export class UserService {
         return this.userRepository.findOneBy({ id });
     }
 
+    async findOneByEmail(email: string): Promise<UserEntity> {
+        return this.userRepository.findOne({ where: { email } });
+    }
+
     async deleteUser(id: number): Promise<UserEntity> {
         const deleteUser = await this.userRepository.findOneBy({ id });
         this.userRepository.softDelete({ id });

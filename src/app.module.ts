@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { getMysqlTypeOrmModule } from './getMysqlTypeOrmModule';
 import { PostModule } from './post/post.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
@@ -15,6 +16,7 @@ import { UserModule } from './user/user.module';
         getMysqlTypeOrmModule,
         PostModule,
         UserModule,
+        AuthModule,
     ],
     controllers: [AppController],
     providers: [AppService],
