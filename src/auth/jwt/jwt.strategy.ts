@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { UserService } from '../../user/user.service';
+import { Payload } from './jwt.payload';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -17,11 +18,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         });
     }
 
-    async validate(payload: any) {
+    async validate(payload: Payload) {
         const user = await this.userService.findOneByUser(payload.userId);
         if (!user) {
             throw new UnauthorizedException('사용자를 찾을 수 없습니다.');
         }
-        return user;
+        return { userId: payload.userId, userName: payload.userName };
     }
 }

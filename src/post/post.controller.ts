@@ -6,6 +6,7 @@ import {
     Param,
     Post,
     Put,
+    Request,
     UseGuards,
 } from '@nestjs/common';
 import { PostService } from './post.service';
@@ -22,9 +23,10 @@ export class PostController {
     @UseGuards(JwtAuthGuard)
     async createPost(
         @Body() createPostDto: CreatePostDto,
+        @Request() req: any,
     ): Promise<PostEntity> {
-        const createPost = this.postService.createPost(createPostDto);
-        return createPost;
+        const userId = req.user.userId;
+        return this.postService.createPost(createPostDto, userId);
     }
 
     @Put(':id')
@@ -32,13 +34,14 @@ export class PostController {
     async updatePost(
         @Param('id') id: number,
         @Body() updatePostDto: UpdatePostDto,
-    ): Promise<PostEntity> {
-        const updatePost = this.postService.updatePost(id, updatePostDto);
-        return updatePost;
+        @Request() req: any,
+    ) {
+        const userId = req.user.userId;
+        return this.postService.updatePost(id, updatePostDto, userId);
     }
 
     @Delete(':id')
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard)
     async deletePost(@Param('id') id: number): Promise<PostEntity> {
         const deletePost = this.postService.deletePost(id);
         return deletePost;
