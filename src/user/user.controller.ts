@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    ParseIntPipe,
+    Post,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/CreateUser.dto';
 import { UserEntity } from '../entities/user.entity';
@@ -22,13 +30,17 @@ export class UserController {
     }
 
     @Get(':id')
-    async findOneByUser(@Param('id') id: number): Promise<UserEntity> {
+    async findOneByUser(
+        @Param('id', ParseIntPipe) id: number,
+    ): Promise<UserEntity> {
         const findOneByUser = this.userService.findOneByUser(id);
         return findOneByUser;
     }
 
     @Delete(':id')
-    async deleteUser(@Param('id') id: number): Promise<UserEntity> {
+    async deleteUser(
+        @Param('id', ParseIntPipe) id: number,
+    ): Promise<UserEntity> {
         const deleteUser = this.userService.deleteUser(id);
         return deleteUser;
     }
