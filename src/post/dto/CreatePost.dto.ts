@@ -1,6 +1,7 @@
-import { IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreatePostDto {
+    @IsNotEmpty()
     @IsString({
         message: 'title을 string 타입으로 입력하시오',
     })
