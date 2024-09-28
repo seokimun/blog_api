@@ -12,22 +12,15 @@ export class PostService {
         private postRepository: Repository<PostEntity>,
     ) {}
 
-    async createPost(
-        createPostDto: CreatePostDto,
-        userId: number,
-    ): Promise<PostEntity> {
-        const createPost = await this.postRepository.create({
+    async createPost(createPostDto: CreatePostDto, userId: number) {
+        const post = await this.postRepository.create({
             ...createPostDto,
             userId,
         });
-        return this.postRepository.save(createPost);
+        return this.postRepository.save(post);
     }
 
-    async updatePost(
-        id: number,
-        updatePostDto: UpdatePostDto,
-        userId: number,
-    ): Promise<PostEntity> {
+    async updatePost(id: number, updatePostDto: UpdatePostDto, userId: number) {
         const post = await this.postRepository.findOneBy({ id });
 
         if (!post) {
@@ -35,23 +28,29 @@ export class PostService {
         }
 
         if (post.userId !== userId) {
-            throw new UnauthorizedException('권한이 없습니다.');
+            throw new UnauthorizedException('수정권한이 없습니다.');
         }
 
         await this.postRepository.update(id, updatePostDto);
         return this.postRepository.findOneBy({ id });
     }
 
-    async deletePost(id: number): Promise<PostEntity> {
-        const deletePost = await this.postRepository.findOneBy({ id });
-        this.postRepository.softDelete({ id });
-        return deletePost;
+    async deletePost(id: number, userId: number) {
+        const post = await this.postRepository.findOneBy({ id });
+
+        if (!post) {
+            throw new UnauthorizedException('게시글을 찾을 수 없습니다.');
+        }
+
+        if (post.userId !== userId) {
+            throw new UnauthorizedException('삭제권한이 없습니다.');
+        }
+
+        await this.postRepository.delete({ id });
     }
 
     async findAllPost(): Promise<PostEntity[]> {
-        return this.postRepository.find({
-            withDeleted: true,
-        });
+        return this.postRepository.find();
     }
 
     async findOnePost(id: number): Promise<PostEntity> {

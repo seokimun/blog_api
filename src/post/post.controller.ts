@@ -25,7 +25,7 @@ export class PostController {
     async createPost(
         @Body() createPostDto: CreatePostDto,
         @Request() req: any,
-    ): Promise<PostEntity> {
+    ) {
         const userId = req.user.userId;
         return this.postService.createPost(createPostDto, userId);
     }
@@ -42,12 +42,13 @@ export class PostController {
     }
 
     @Delete(':id')
-    // @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     async deletePost(
         @Param('id', ParseIntPipe) id: number,
-    ): Promise<PostEntity> {
-        const deletePost = this.postService.deletePost(id);
-        return deletePost;
+        @Request() req: any,
+    ) {
+        const userId = req.user.userId;
+        return this.postService.deletePost(id, userId);
     }
 
     @Get()
