@@ -5,7 +5,7 @@ export class CreateUserDto {
     @IsEmail({}, { message: 'email형식으로 입력하시오' })
     email: string;
 
-    @IsNotEmpty()
+    @IsNotEmpty() //
     @IsString({
         message: 'password를 string형식으로 입력하시오',
     })
